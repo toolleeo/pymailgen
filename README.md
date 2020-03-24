@@ -21,7 +21,7 @@ Once all the necessary data are in place, run the following command to generate 
 python3 auto_mailer.py body.txt contacts.csv --ssmtp header.txt
 ```
 
-If the SMTP cliet is properly configured, the emails can be sent by running
+If the SMTP client is properly configured, the emails can be sent by running
 
 ```
 sh sendall.sh
