@@ -2,13 +2,13 @@
 
 `auto_mailer` generates a list of emails to be sent out using a command-line SMTP client.
 
-The main components are:
+The main elements to generate the emails:
 
-* the body of the email
-* the header of the email
-* the list of recipients with as many optional fields as needed
+* the body of the email: a plain text file with placeholders
+* the header of the email: a plain text file with standard email header format
+* the list of recipients: a CSV file with as many optional fields as needed
 
-The body and the header of the email can contain placeholders in the form of `{Field}`. For each email, `auto_mailer` replaces the placeholder with the value in the column `Field`. Association between field and placeholder is case-sensitive.
+The body and the header of the email can contain placeholders in the form of `{Field}`. For each email, `auto_mailer` replaces the placeholder with the value in the column `Field` in a CSV file containing the necessary information. Association between field and placeholder is case-sensitive.
 
 `auto_mailer` does not send the emails itself. It relies on external command-line tools to do it. `auto_mailer` generates a shell script called `sendall.sh` that contains the list of commands to send out the emails using a command line STMP client.
 
