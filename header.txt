@@ -1,0 +1,4 @@
+To: {Email}
+Cc: jj.doe@domain.org
+From: jj.doe@domain.org
+Subject: auto_mailer test

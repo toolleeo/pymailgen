@@ -1,0 +1,3 @@
+Dear {Name} {FamilyName},
+
+Hello World, auto_mailer!
