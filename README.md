@@ -18,7 +18,7 @@ Some useful info to configure `ssmtp` for being used with Gmail are reported [in
 Once all the necessary data are in place, run the following command to generate the emails:
 
 ```
-python3 auto_mailer.py body.txt contacts.csv --ssmtp header.txt
+auto_mailer body.txt contacts.csv --ssmtp header.txt
 ```
 
 If the SMTP client is properly configured, the emails can be sent by running
