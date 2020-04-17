@@ -34,10 +34,14 @@ def process(email_text, data):
     #print(n)
     email_filename_template = 'email_{{:0{}d}}.txt'.format(n)
     #print(email_filename_format)
+    # Erase the existing file
     with open(sender_script_filename, 'w') as f:
         pass
     i = 0
     for item in data:
+        if 'Blacklist' in item:
+            if item['Blacklist'] != '':
+                continue
         email = email_text.format(**item)
         #print(email)
         email_filename = email_filename_template.format(i)

@@ -21,8 +21,12 @@ Once all the necessary data are in place, run the following command to generate 
 auto_mailer body.txt contacts.csv --ssmtp header.txt
 ```
 
-If the SMTP client is properly configured, the emails can be sent by running
+If the SMTP client is properly configured, the emails will be sent out by running
 
 ```
 sh sendall.sh
 ```
+
+## Blacklist
+
+If the input CSV file contains a column named `Blacklist` (case-sensitive), every row with any non-empty content in that column will be skipped during the generation of the set of emails.
