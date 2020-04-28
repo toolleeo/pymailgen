@@ -53,8 +53,8 @@ def process(email_text, data):
         #send_line = send_line_template.format(address, email_filename)
         send_line = send_line_template.format(**fields)
         with open(sender_script_filename, 'a') as f:
-            f.write('echo "Sending #{} to {}"'.format(i, addr) + '\n')
             f.write(send_line + '\n')
+            f.write('echo "[$(date +\"%Y-%m-%d %T.%3N\")] Email #{} to {}" | tee -a auto_mailer.log'.format(i, addr) + '\n')
         i += 1
 
 
@@ -63,7 +63,7 @@ def check_data(data):
         print('Data file must contain at least one row.')
         sys.exit(1)
     if 'Email' not in data[0]:
-        print('Data file must contain the "Email" colummn (case-sensitive).')
+        print('Data file must contain the "Email" column (case-sensitive).')
         sys.exit(1)
 
 
