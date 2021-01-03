@@ -40,9 +40,7 @@ def is_valid_address(email_address):
 def process(email_text, data):
     """Generates an email file for each item in the input data."""
     n = len(str(len(data)))
-    #print(n)
     email_filename_template = 'email_{{:0{}d}}.txt'.format(n)
-    #print(email_filename_format)
     # gets an empty sender script file
     with open(sender_script_filename, 'w') as f:
         pass
@@ -52,9 +50,7 @@ def process(email_text, data):
             if item['Blacklist'] != '':
                 continue
         email = email_text.format(**item)
-        #print(email)
         email_filename = email_filename_template.format(i)
-        #print(email_filename)
         addr = item['Email']
         if not is_valid_address(addr):
             print('Invalid email address "{}" at line {}'.format(addr, j + 1))
@@ -62,7 +58,6 @@ def process(email_text, data):
         with open(email_filename, 'w') as f:
             f.write(email)
         fields = {'Address': addr, 'EmailFName': email_filename}
-        #send_line = send_line_template.format(address, email_filename)
         send_line = send_line_template.format(**fields)
         with open(sender_script_filename, 'a') as f:
             f.write(send_line + '\n')
@@ -85,18 +80,15 @@ def main():
 
     data = read_data_file(args.datafile)
     check_data(data)
-    #print(data)
 
     with open(args.body, 'r') as f:
         body = f.read()
-    #print(body)
     if args.ssmtp is not None:
         with open(args.ssmtp, 'r') as f:
             header = f.read()
         email_text = header + '\n' + body
     else:
         email_text = body
-    #print(email_text)
     process(email_text, data)
 
 
