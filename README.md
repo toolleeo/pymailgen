@@ -11,6 +11,9 @@ The main elements to generate the emails:
 The body and the header of the email can contain placeholders in the form of `{Field}`. For each email, `auto_mailer` replaces the placeholder with the value in the column `Field` in a CSV file containing the necessary information. Association between field and placeholder is case-sensitive.
 
 `auto_mailer` does not send the emails itself. It relies on external command-line tools to do it. `auto_mailer` generates a shell script called `sendall.sh` that contains the list of commands to send out the emails using a command line STMP client.
+Each individual email is contained in a file named `email_X.txt`, where `X` is an incremental number.
+
+This two-stage procedure has at least two advantages: 1) you can inspect the emails before sending them out, and 2) in case of any issue in the sending, you have a log of what happened, and you try sending the failed emails by just manually editing the `sendall.sh` script to keep the necessary corresponding commands.
 
 At the moment, the only supported SMTP client is `ssmtp`.
 Some useful info to configure `ssmtp` for being used with Gmail are reported [in this blog](https://blog.edmdesigner.com/send-email-from-linux-command-line/).
@@ -24,7 +27,7 @@ auto_mailer body.txt contacts.csv --ssmtp header.txt
 If the SMTP client is properly configured, the emails will be sent out by running
 
 ```
-sh sendall.sh
+bash sendall.sh
 ```
 
 ## Blacklist
