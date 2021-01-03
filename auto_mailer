@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
+import argparse
 import csv
 import sys
-import argparse
+import re
 
 sender_script_filename = 'sendall.sh'
 ssmtp_line_template = 'ssmtp {Address} < {EmailFName}'
@@ -28,17 +29,25 @@ def read_data_file(data_file, delimiter=',', quotechar='"'):
     return data
 
 
+def is_valid_address(email_address):
+    """Check the validity of an email address."""
+    if re.match(r"[^@]+@[^@]+\.[^@]+", email_address):
+        return True
+    else:
+        return False
+
+
 def process(email_text, data):
-    # prints an email for each template
+    """Generates an email file for each item in the input data."""
     n = len(str(len(data)))
     #print(n)
     email_filename_template = 'email_{{:0{}d}}.txt'.format(n)
     #print(email_filename_format)
-    # Erase the existing file
+    # gets an empty sender script file
     with open(sender_script_filename, 'w') as f:
         pass
     i = 0
-    for item in data:
+    for j, item in enumerate(data):
         if 'Blacklist' in item:
             if item['Blacklist'] != '':
                 continue
@@ -47,6 +56,9 @@ def process(email_text, data):
         email_filename = email_filename_template.format(i)
         #print(email_filename)
         addr = item['Email']
+        if not is_valid_address(addr):
+            print('Invalid email address "{}" at line {}'.format(addr, j + 1))
+            continue
         with open(email_filename, 'w') as f:
             f.write(email)
         fields = {'Address': addr, 'EmailFName': email_filename}
