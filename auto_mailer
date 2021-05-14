@@ -21,6 +21,7 @@ def init_argparser():
 
 
 def read_data_file(data_file, delimiter=',', quotechar='"'):
+    """Loads the data used to fill the emails."""
     data = []
     with open(data_file, 'r') as f:
         lines = csv.DictReader(f, delimiter=delimiter, quotechar=quotechar)
