@@ -16,6 +16,13 @@ Some useful info to configure `ssmtp` for being used with Gmail are reported [in
 The logic of `pymailgen` is super simple.
 Therefore, it is easy to hack and customize in case a more complex logic is required to fill the template.
 
+# Install
+
+`pymailgen` is available using `pip`:
+
+```
+pip install pymailgen
+```
 # How it works
 
 The elements required to generate the emails are:
@@ -41,6 +48,8 @@ If the SMTP client is properly configured, the emails will be sent out by runnin
 ```
 bash sendall.sh
 ```
+
+In the repository, you can find an example of body, header and CSV file in the `tests` directory.
 
 ## Blacklisting
 
