@@ -37,7 +37,7 @@ def is_valid_address(email_address):
         return False
 
 
-def process(email_text, data):
+def process(email_text, data, send_line_template):
     """Generates an email file for each item in the input data."""
     n = len(str(len(data)))
     email_filename_template = 'email_{{:0{}d}}.txt'.format(n)
@@ -87,9 +87,10 @@ def main():
         with open(args.ssmtp, 'r') as f:
             header = f.read()
         email_text = header + '\n' + body
+        send_line_template = 'ssmtp -t < {EmailFName}'
     else:
         email_text = body
-    process(email_text, data)
+    process(email_text, data, send_line_template)
 
 
 if __name__ == "__main__":
