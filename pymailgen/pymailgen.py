@@ -65,13 +65,16 @@ def process(email_text, data, send_line_template):
         i += 1
 
 
-def check_data(data):
+def check_data_file(data):
+    """Perform some checkings on the input data file.
+
+    Returns None if everything is alright. Otherwise an error string.
+    The error string has a placeholder for the filename."""
     if len(data) < 1:
-        print('Data file must contain at least one row.')
-        sys.exit(1)
+        return '{}: data file must contain at least one row.'
     if 'Email' not in data[0]:
-        print('Data file must contain the "Email" column (case-sensitive).')
-        sys.exit(1)
+        return '{}: data file must contain the "Email" column (case-sensitive).'
+    return None
 
 
 def main():
@@ -79,7 +82,10 @@ def main():
     args = parser.parse_args()
 
     data = read_data_file(args.datafile)
-    check_data(data)
+    err_string = check_data_file(data)
+    if err_string is not None:
+        print(err_string.format(args.datafile))
+        return
 
     with open(args.body, 'r') as f:
         body = f.read()
