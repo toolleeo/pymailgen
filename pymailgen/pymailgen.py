@@ -14,8 +14,10 @@ def init_argparser():
                         help="Text file containing the body of the message")
     parser.add_argument('datafile', action="store", type=str,
                         help="File containing the variable data to fill the emails")
-    parser.add_argument('--ssmtp', '-s', metavar='HEADER',
+    parser.add_argument('--ssmtp', metavar='HEADER',
                         help='Sets ssmtp to send the emails; requires the header file containing the sending information.')
+    parser.add_argument('--msmtp', metavar='ACCOUNT',
+                        help='Sets msmtp to send the emails; requires the sending account as configured in ~/.msmtprc.')
     return parser
 
 
@@ -92,8 +94,11 @@ def main():
     if args.ssmtp is not None:
         with open(args.ssmtp, 'r') as f:
             header = f.read()
-        email_text = header + '\n' + body
+        email_text = header + '\n' + body   # TODO: header should not be a separate argument!
         send_line_template = 'ssmtp -t < {EmailFName}'
+    elif args.msmtp is not None:
+        email_text = body
+        send_line_template = f"cat {{EmailFName}} | msmtp -a {args.msmtp} {{Address}}"
     else:
         email_text = body
     process(email_text, data, send_line_template)
