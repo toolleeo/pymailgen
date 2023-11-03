@@ -61,7 +61,7 @@ def process(email_text, data, send_line_template):
         send_line = send_line_template.format(**fields)
         with open(sender_script_filename, 'a') as f:
             f.write(send_line + '\n')
-            f.write('echo "[$(date +\"%Y-%m-%d %T.%3N\")] Email #{} to {}" | tee -a auto_mailer.log'.format(i, addr) + '\n')
+            f.write(f'echo "[$(date +\"%Y-%m-%d %T.%3N\")] Email #{i} to {addr}" | tee -a auto_mailer.log\n')
         i += 1
 
 
