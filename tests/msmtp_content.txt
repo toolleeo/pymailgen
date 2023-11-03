@@ -1,0 +1,6 @@
+To: {Email}
+From: username@gmail.com
+Subject: A test email
+Dear {Name} {FamilyName},
+
+Hello World, auto_mailer!
