@@ -71,9 +71,9 @@ def check_data_file(data):
     Returns None if everything is alright. Otherwise an error string.
     The error string has a placeholder for the filename."""
     if len(data) < 1:
-        return '{}: data file must contain at least one row.'
+        return '{}: must contain at least one row.'
     if 'Email' not in data[0]:
-        return '{}: data file must contain the "Email" column (case-sensitive).'
+        return '{}: must contain the "Email" column (case-sensitive).'
     return None
 
 
